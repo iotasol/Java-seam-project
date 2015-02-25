@@ -11,7 +11,7 @@ Technologies Used<br/>
 <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a><br/>
 <a>Javascript</a><br/>
 
-This is a demo project for CRUD operations of Seam and designed with Bootstrap. This project is created using Seam 2(JSF), Bootstrap, jQuery and MySql as the database and for object relation mapping we user Hiberante.
+This is a demo project for CRUD operations of Seam and designed with Bootstrap. This project is created using Seam 2(JSF), Bootstrap, jQuery and MySql as the database and for object relation mapping Hiberante is used.
 
 Thanks,<br/>
 <a href="http://iotasol.com/" target="_blank">Iotasol Technologies Pvt. Ltd.</a>
