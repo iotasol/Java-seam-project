@@ -11,7 +11,7 @@ Technologies Used
       <li><a>Javascript</a><br/><br/></li>
   <ul style="list-style-type: none;">
 
-This is a demo website for CRUD operations of Seam and designed with Bootstrap. This is website is created using Seam 2(JSF), Bootstrap, jQuery and MySql as the database.
+<p>This is a demo website for CRUD operations of Seam and designed with Bootstrap. This is website is created using Seam 2(JSF), Bootstrap, jQuery and MySql as the database.</p>
 
-Thanks, <br/>
+<p>Thanks,</p> <br/>
 <a href="http://iotasol.com/" target="_blank">Iotasol Technologies Pvt. Ltd.</a>
