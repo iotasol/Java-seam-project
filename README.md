@@ -9,7 +9,7 @@ Technologies Used
 <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a><br/>
 <a>Javascript</a><br/><br/>
 
-<p>This is a demo website for CRUD operations of Seam and designed with Bootstrap. This is website is created using Seam 2(JSF), Bootstrap, jQuery and MySql as the database.</p>
+This is a demo website for CRUD operations of Seam and designed with Bootstrap. This is website is created using Seam 2(JSF), Bootstrap, jQuery and MySql as the database.
 
-<p>Thanks,</p> <br/>
+Thanks,<br/>
 <a href="http://iotasol.com/" target="_blank">Iotasol Technologies Pvt. Ltd.</a>
