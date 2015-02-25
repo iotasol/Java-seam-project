@@ -1,0 +1,214 @@
+/*    --------------------------------------------------
+	:: Login Section
+	-------------------------------------------------- */
+#login {
+    padding-top: 100px
+}
+#login .form-wrap {
+    /* width: 30%; */
+    width: 288px;
+    margin: 0 auto;
+}
+#login h1 {
+    color: #1fa67b;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+#login .form-group {
+    margin-bottom: 25px;
+}
+#login .checkbox {
+    margin-bottom: 20px;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+#login .checkbox.show:before {
+    content: '\e013';
+    color: #1fa67b;
+    font-size: 17px;
+    margin: 1px 0 0 3px;
+    position: absolute;
+    pointer-events: none;
+    font-family: 'Glyphicons Halflings';
+}
+#login .checkbox .character-checkbox {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    display: inline-block;
+}
+#login .checkbox .label {
+    color: #6d6d6d;
+    font-size: 13px;
+    font-weight: normal;
+}
+#login .btn.btn-custom {
+    font-size: 14px;
+	margin-bottom: 20px;
+}
+#login .forget {
+    font-size: 13px;
+	text-align: center;
+	display: block;
+}
+
+a:HOVER{
+	text-decoration: none;
+}
+
+ul li{
+	list-style: none;
+}
+
+.error{
+	color: red;
+}
+
+/*    --------------------------------------------------
+	:: Inputs & Buttons
+	-------------------------------------------------- */
+.form-control {
+    color: #212121;
+}
+.btn-custom {
+    color: #fff;
+	background-color: #1fa67b;
+}
+.btn-custom:hover,
+.btn-custom:focus {
+    color: #fff;
+}
+
+/*    --------------------------------------------------
+    :: Footer
+	-------------------------------------------------- */
+#footer {
+    color: #6d6d6d;
+    font-size: 12px;
+    text-align: center;
+}
+#footer p {
+    margin-bottom: 0;
+}
+#footer a {
+    color: inherit;
+}
+
+.form-group{
+	text-align: left;
+}
+
+.table-bordered tbody > tr > th, .table-bordered tbody > tr > td {
+	color: #000;
+	text-align: left;
+}
+
+.modelPopupWrapper2 {
+	display: block;
+	z-index: 200;
+	top: -10000px;
+	position: absolute;	
+}
+
+.confermPopUp{
+	position: absolute;
+	background: #7C7C7C;
+	width: 430px;
+	height: 185px;
+	border: solid 1px #000;
+	z-index: 200;
+	border-radius: 5px;
+	-moz-box-shadow: 0px 0px 15px 0px #000;
+	-webkit-box-shadow: 0px 0px 15px 0px #000;
+	box-shadow: 0px 0px 15px 0px #000;
+	-moz-box-shadow: 0px 0px 15px 0px #000;
+}
+
+/******************
+* alert popup css *
+*******************/
+.alertHolderDiv, .ifdAlertHolderDiv {
+	display: none;
+	left: 50%;/* 
+	margin-left: -250px; */
+	position: fixed;
+	top: 40px;
+	/* width: 75%; */
+	z-index: 500000;
+	width: 300px;
+	margin-left: -150px;
+}
+  
+.alert-danger {
+	background-image: linear-gradient(to bottom, #F2DEDE 0%, #E7C3C3 100%);
+	background-repeat: repeat-x;
+	border-color: #DCA7A7;
+	background-color: #F2DEDE;
+	border-color: #EED3D7;
+	color: #B94A48;
+}
+
+.alert {
+	border: 1px solid rgba(0, 0, 0, 0);
+	border-radius: 4px 4px 4px 4px;
+	margin-bottom: 20px;
+	padding: 10px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+ 
+button.close {
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: 0 none;
+	cursor: pointer;
+	padding: 0;
+}
+ 
+.close {
+	color: #000000;
+	float: right;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 1;
+	opacity: 0.2;
+	text-shadow: 0 1px 0 #FFFFFF;
+}
+ 
+.alertHolderDiv h4 {
+	font-size: 18px;
+	font-weight: bold;
+}
+ 
+.alert h4 {
+	color: inherit;
+	margin-top: 0;
+	font-size: 15px;
+}
+.alert-success {
+	color: #468847;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+}
+
+.alert .close{
+	right: 0 !important;
+}
+
+#alertMsgId{
+	font-family: UniversRoman;
+	font-size: 13px;
+}
+
+#alertHeadId{
+	margin-bottom: 10px;
+}

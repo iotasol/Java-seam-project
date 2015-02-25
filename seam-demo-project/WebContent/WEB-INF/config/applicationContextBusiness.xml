@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is a spring configuration file for BSM Web Business Layer -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="byName">
+
+	<!-- - Application context definition for Business Layer of the application. -->
+	
+
+	<!-- Transaction interceptor for Business -->
+	<bean id="transactionInterceptorBusiness"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- Parent Business service that all other business services must inherit 
+		for Tracing only OK actions -->
+	<bean id="BaseBusinessService" abstract="true"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptorBusiness</value>
+				<value>loggingInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="BaseProtocolBuilder" abstract="true"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="interceptorNames">
+			<list>
+				<value>loggingInterceptor</value>
+			</list>
+		</property>
+	</bean>	
+	
+	<bean id="iUserService" parent="BaseBusinessService">
+		<property name="proxyInterfaces" value="com.iotasol.service.IUserService" />
+		<property name="target">
+			<bean class="com.iotasol.service.UserService">
+				<property name="userDAO" ref="iUserDAO" />
+			</bean>
+		</property>
+	</bean>
+
+</beans>

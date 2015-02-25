@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/webflow-config
+http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+http://www.springframework.org/schema/faces
+http://www.springframework.org/schema/faces/spring-faces-2.0.xsd">
+
+	<!-- ================================================================== -->
+	<!-- === MESSAGE SOURCE DEFINITION ==================================== -->
+	<!-- ================================================================== -->
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="alwaysUseMessageFormat" value="true" />
+		<property name="basenames">
+			<list>
+				<value>/com/bsm/resource/BSM_Messages</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="validatorFactory"
+		class="org.springmodules.validation.commons.DefaultValidatorFactory">
+		<property name="validationConfigLocations">
+			<list>
+				<value>/WEB-INF/validationRules/validation.xml</value>
+				<value>
+					/WEB-INF/validationRules/validator-rules.xml
+				</value>
+				<value>
+					/WEB-INF/validationRules/IC01-validation.xml
+				</value>
+				<value>
+					/WEB-INF/validationRules/Rates-Rules-validation.xml
+				</value>
+				<value>
+					/WEB-INF/validationRules/RSCManager-validation.xml
+				</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="beanValidator"
+		class="org.springmodules.validation.commons.DefaultPageBeanValidator">
+		<property name="validatorFactory" ref="validatorFactory" />
+		<property name="useFullyQualifiedClassName" value="true"></property>
+	</bean>
+
+	<!-- Define a Validator classs will be called by WEB flow to validate user inputs -->
+	<bean id="bsmValidator" class="com.bsm.util.BeanValidator">
+		<property name="validator" ref="beanValidator" />
+		<property name="messageSource" ref="messageSource"></property>
+	</bean>
+
+</beans>
+

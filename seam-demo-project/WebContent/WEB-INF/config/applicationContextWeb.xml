@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is a spring configuration file master  -->
+<!-- All the application files are imported      -->
+<!-- No specific spring beans defined here bean  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="byName">
+
+<!-- Data Source definition -->
+	<import resource="applicationContextDataSource.xml" />
+	
+	<!-- Hibernate SessionFactory & transactionManager  definition -->
+	<import resource="applicationContextSessionFactory.xml" />
+	
+	<!-- Hibernate SessionFactory & transactionManager  definition -->
+	<import resource="applicationContextTransaction.xml" />
+
+	<!-- Data Access Layer Application context file definition -->
+	<import resource="applicationContextDataAccess.xml" />
+
+	<!-- Business Layer Application context file definition -->
+	<import resource="applicationContextBusiness.xml" />
+	
+
+</beans>

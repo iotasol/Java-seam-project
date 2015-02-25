@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	
+	
+	
+	<query name="User.fetchUserByForLogin">
+		<![CDATA[
+		    FROM User
+			WHERE username = :username  
+			AND  password = :password
+			AND deleted = false
+	 	]]>
+	</query>
+	<query name="User.fetchUsers">
+		<![CDATA[
+			FROM User where deleted=false
+	 	]]>
+	</query>
+	<query name="User.FetchUserByUserId">
+		<![CDATA[
+		    FROM User
+			WHERE id = :id
+			AND deleted = false
+	 	]]>
+	</query>
+	
+	<query name="User.FetchUserByUsername">
+		<![CDATA[
+		    FROM User
+			WHERE username = :username
+			AND deleted = false
+	 	]]>
+	</query>
+	
+	
+			
+</hibernate-mapping>

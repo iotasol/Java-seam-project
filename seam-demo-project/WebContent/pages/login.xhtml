@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<f:view contentType="text/html" encoding="UTF-8">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="${request.contextPath}/css/adminstyles.css" rel="stylesheet"
+		type="text/css" />
+	<link href="${request.contextPath}/css/admin.css" rel="stylesheet"
+		type="text/css" />
+	<link href="${request.contextPath}/css/custom.css" rel="stylesheet"
+		type="text/css" />
+	<script type="text/javascript"
+		src="${request.contextPath}/js/jquery-1.3.2.min.js"></script>
+	<script src="${request.contextPath}/js/jquery.nyroModal-1.6.2.pack.js" type="text/javascript"></script>
+	<script type="text/javascript"
+		src="${request.contextPath}/js/myHandlers.js"></script>
+	<script type="text/javascript"
+		src="${request.contextPath}/js/customHandlers.js"></script>
+	<script type="text/javascript"
+		src="${request.contextPath}/js/myCustomHandlers.js"></script>
+	<script type="text/javascript"
+		src="${request.contextPath}/js/swfupload.js"></script>
+	<script type="text/javascript"
+		src="${request.contextPath}/js/common.js"></script>
+	
+	<script>
+     jQuery.noConflict();
+   </script>
+	
+	</head>
+	<body>
+	<h:form id="loginForm">
+		<div style="margin-left: 10%; margin-top: 15%;">
+        	<div class="boxTop1000" style="text-align: center;">Admin Login</div>
+            <div class="boxMiddle1000">
+                <div class="clear-height"></div>
+            	<div class="boxLine1000centered" style="width: auto;">
+                	<div class="left2">User name:</div>
+                	<h:inputText styleClass="inputBilling" id="emailId" maxlength="100" value="#{identity.username}" required="false" requiredMessage="Please enter your email"/>
+                </div>
+                <div class="boxLine1000centered" style="width: auto;">
+                	<div class="left2">Password:</div>
+                    <h:inputSecret styleClass="inputBilling" id="password" maxlength="100" value="#{identity.password}" required="false" requiredMessage="Please enter your password"/>
+                </div>    					
+	            <div class="orangeBtt1000Center" style="width: auto;">
+	            	<h:commandLink class="orangeBtt" id="submitFormAction1" action="#{identity.login}" rendered="true">Login</h:commandLink>
+	            </div>
+	            <div class="clear-height"></div>
+				<strong><h:messages styleClass="error" errorClass="error" /></strong>	           
+	            <div class="clear-height"></div>
+            </div> 
+            <div class="boxBottomLarge"><img src="../images/boxBottom1000.png" alt="" /></div>
+     	</div>
+	</h:form>
+	</body>
+
+</f:view>
+</html>

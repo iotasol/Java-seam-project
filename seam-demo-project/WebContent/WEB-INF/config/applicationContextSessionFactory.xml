@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<!-- This is a spring configuration Datasource file   -->
+	<!-- All the application files are imported      -->
+	<!-- No specific spring beans defined here bean  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="byName">
+
+	<!--
+		Hibernate SessionFactory definition for MyFaces, Hibernate and Spring
+		Integration application.
+	-->
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.iotasol.model.User</value>
+			</list>
+		</property>
+		<property name="schemaUpdate">
+			<value>false</value>
+		</property>
+		<property name="hibernateProperties">
+			   <props>
+			    <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			    <prop key="hibernate.show_sql">true</prop>
+			    <prop key="hibernate.jdbc.batch_size">5</prop>
+			    <prop key="hibernate.cache.use_second_level_cache">false</prop>
+			    
+			    <!-- configuration pool via c3p0-->
+			    <prop key="hibernate.c3p0.testConnectionOnCheckout ">true</prop>
+			    <prop key="hibernate.c3p0.acquire_increment">3</prop>
+			    <prop key="hibernate.c3p0.idle_test_period">100</prop> <!-- seconds -->
+			    <prop key="hibernate.c3p0.max_size">100</prop>
+			    <prop key="hibernate.c3p0.max_statements">0</prop>
+			    <prop key="hibernate.c3p0.min_size">10</prop>
+			    <prop key="hibernate.c3p0.timeout">100</prop> <!-- seconds -->
+			   </props>
+			  </property>
+		<property name="mappingResources">
+			<list>
+				<value>/com/iotasol/resource/UserNamedQueries.hbm.xml</value>		
+			</list>
+		</property>
+	</bean>
+
+</beans>

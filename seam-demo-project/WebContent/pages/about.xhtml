@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<head>
+	<meta charset="ISO-8859-1" />
+	<title>CRUD operations</title>
+	
+	<!-- external stylesheets starts from here -->
+	<link href="${request.contextPath}/css/bootstrap-3.3.1/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="${request.contextPath}/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	
+	<!-- custom stylesheets starts from here -->
+	<link href="${request.contextPath}/css/styleSheet.css" rel="stylesheet" type="text/css" />
+	<link href="${request.contextPath}/css/grayscale.css" rel="stylesheet" type="text/css" />
+	
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+	<a4j:form id="general">
+		
+	    <!-- Navigation starts from here -->
+	    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+	        <div class="container">
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+	                    <i class="fa fa-bars"></i>
+	                </button>
+	                <a class="navbar-brand page-scroll" href="http://iotasol.com/">
+	                    IOTASOL
+	                </a>
+	            </div>
+	
+	            <!-- Collect the nav links, forms, and other content for toggling -->
+	            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+	                <ul class="nav navbar-nav">
+	                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+	                    <li class="hidden">
+	                        <a href="#page-top"></a>
+	                    </li>
+	                    <li style="background-color: rgba(255,255,255,.3);">
+	                        <a class="page-scroll" href="../pages/about">About</a>
+	                    </li>
+	                    <li>
+	                        <a class="page-scroll" href="../pages/listing">Listing</a>
+	                    </li>
+	                    <li>
+	                    	<a4j:commandLink id="signoout" action="#{authenticator.signOut}">
+	                        	Logout
+	                        </a4j:commandLink>
+	                    </li>
+	                </ul>
+	            </div>
+	            <!-- /.navbar-collapse -->
+	            <div class="clearfix"></div>
+	        </div>
+	        <!-- /.container -->
+	        <div class="clearfix"></div>
+	    </nav>
+	    <!-- Navigation ends here -->
+	    <div class="clearfix"></div>
+	
+	    <!-- Section starts from here -->
+	    <section class="intro">
+	        <div class="intro-body">
+	        	
+	            <div class="container">
+	                <div class="row">
+	                	
+	                	<!-- technologies div starts from here -->
+	                    <div class="col-lg-6">
+	                    	<h1 class="page-header">
+	                            About Website
+	                        </h1>
+			                <div class="well" style="color: #000; text-align: left;">
+			                    <p>This website is created By <a href="http://iotasol.com/" target="_blank">Iotasol Technologies Pvt. Ltd.</a>.</p>
+			                    <h2> Technologies Used </h2>
+			                    <a href="http://seamframework.org/" target="_blank">Seam 2(JSF)</a><br/>
+			                    <a href="http://jquery.com/" target="_blank">jQuery</a><br/>
+			                    <a href="http://www.mysql.com/" target="_blank">MySql</a><br/>
+			                    <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a><br/>
+			                    <a>Javascript</a><br/><br/>
+			                    <p>This is website is created using Seam 2(JSF), Bootstrap, jQuery and MySql as the database.</p>
+			                </div>
+	                    </div>
+	                    <!-- technologies div ends here -->
+	                    
+	                    <!-- about Iotasol div starts from here -->
+	                    <div class="col-lg-6">
+	                        <h1 class="page-header">
+	                            About Iotasol
+	                        </h1>
+			                <div class="well" style="color: #000; text-align: justify;">
+			                    <h4 style="color: #115B87; text-align: center;">OUR VISION</h4>
+			                    <h5 style="color: #88a919;">I – Innovative, O – Out of Box, T – Technology driven, A – Agile, S - Software Solutions.</h5>
+			                    <p>Iotasol since its beginning has been committed to deliver services that goes extra mile in all aspects. We cater to diversified nature &amp; culture of growing businesses. Iotasol has proven processes of software development, which enhance overall experience of Application usage and development. We believe to enhance business capabilities and work experience of our customers by introducing revolutionary and innovative business ideas during Software development.</p>
+			                    <p>We inculcate the latest methodologies and technologies in our processes and Software Development Life Cycle stages. We have strong technical team which is customer oriented and believe in bringing values to team and customer at every phase of development. We strive to build long term business relationships with our esteemed clients.</p>
+			                    <p>We have worked in varied domains with global clients which helped us building a strong foundation of Software Development Techniques. We believe to be Right First Time and reducing turnaround time of our customers, this helps in reducing overall cost of software development and maintainence for our Customers. Our team has effective communication skills which helps in better mapping of requirements to end solution. We look forward to serve you with best of our capabilities.</p>
+			                </div>
+	                    </div>
+	                    <!-- about Iotasol div ends here -->
+	                </div>
+	            </div>
+	            
+	        </div>
+	        
+	    </section>
+	    <!-- Section starts from here -->
+	    
+	</a4j:form>
+	
+	<!-- external scripts starts from here -->
+	<script type="text/javascript" src="${request.contextPath}/js/jQuery.js"></script>
+	<script type="text/javascript" src="${request.contextPath}/js/bootstrap-3.3.1/bootstrap.min.js"></script>
+	<script>
+     jQuery.noConflict();
+   	</script>
+   	
+	<script type="text/javascript">
+		jQuery('.glyphicon-remove-circle').on('click', function(e){
+		    e.preventDefault();
+		    jQuery('#confirmDelete').modal({ backdrop: 'static', keyboard: false })
+		        .one('click', '#delete', function() {
+		            submitRequest('general:deleteUser');
+		        });
+		        // (one. is not a typo of on.)
+		});		
+	</script>
+</body>
+
+</html>

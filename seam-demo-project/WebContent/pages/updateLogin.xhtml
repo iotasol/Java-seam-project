@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+	<meta charset="ISO-8859-1" />
+	<title>Login Page</title>
+	
+	<!-- external stylesheet starts from here -->
+	<link href="${request.contextPath}/css/bootstrap-3.3.1/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	
+	<!-- custom stylesheet starts from here -->
+	<link href="${request.contextPath}/css/styleSheet.css" rel="stylesheet" type="text/css" />
+	
+</head>
+<body>
+	<h:form id="loginForm">
+	
+		<section id="login">
+		    <div class="container">
+		    	<div class="row">
+		    	    <div class="col-xs-12">
+		        	    <div class="form-wrap">
+		                <h1>Log in </h1>
+		                        <div class="form-group">
+		                            <label for="email" class="sr-only">Email</label>
+		                            <h:inputText styleClass="inputBilling form-control" id="emailId" maxlength="100" value="#{identity.username}" required="false" requiredMessage="Please enter your email"/>
+		                        </div>
+		                        <div class="form-group">
+		                            <label for="key" class="sr-only">Password</label>
+		                            <h:inputSecret styleClass="inputBilling form-control" id="password" maxlength="100" value="#{identity.password}" required="false" requiredMessage="Please enter your password"/>
+		                        </div>
+		                        <h:commandLink class="orangeBtt" id="submitFormAction1" action="#{identity.login}" rendered="true">
+		                        	<input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in" />
+		                        </h:commandLink>
+		                       <h:messages styleClass="error" errorClass="error" />
+		        	    </div>
+		    		</div> <!-- /.col-xs-12 -->
+		    	</div> <!-- /.row -->
+		    </div> <!-- /.container -->
+		</section>
+		
+	</h:form>
+	
+	<!-- external script starts from here -->
+	<script type="text/javascript" src="${request.contextPath}/js/jQuery.js"></script>
+	
+</body>
+</html>

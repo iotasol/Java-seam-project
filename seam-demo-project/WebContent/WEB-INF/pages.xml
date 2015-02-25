@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+	login-view-id="/pages/updateLogin.xhtml">
+
+	
+	<page view-id="/pages/updateLogin.xhtml" action="#{authenticator.validateURL}">
+		<rewrite pattern="/pages/login" />
+		<navigation>
+			<rule if="#{s:hasRole('admin') and identity.loggedIn}">
+				<redirect view-id="/pages/about.xhtml" />
+			</rule>
+		</navigation>
+	</page>
+	
+	<page view-id="/pages/about.xhtml" login-required="true">
+		<rewrite pattern="/pages/about" />
+	</page>
+	
+	<page view-id="/pages/listing.xhtml" action="#{userAction.onLoad}" login-required="true">
+		<rewrite pattern="/pages/listing" />
+	</page>
+	
+	
+	<exception class="javax.crypto.BadPaddingException">
+		<redirect view-id="/updateLogin.xhtml">
+			<message severity="INFO">Your session has timed out, please login
+				again.</message>
+		</redirect>
+	</exception>
+
+	<exception class="org.jboss.seam.framework.EntityNotFoundException">
+		<redirect view-id="/error.xhtml">
+			<message severity="INFO">org.jboss.seam.framework.EntityNotFoundException
+				Not found</message>
+		</redirect>
+	</exception>
+
+	<exception class="javax.persistence.EntityNotFoundException">
+		<redirect view-id="/error.xhtml">
+			<message severity="INFO">javax.persistence.EntityNotFoundException
+				Not found</message>
+		</redirect>
+	</exception>
+
+	<exception class="javax.persistence.OptimisticLockException">
+		<end-conversation />
+		<redirect view-id="/error.xhtml">
+			<message severity="INFO">Another user changed the same data, please
+				try again
+			</message>
+		</redirect>
+	</exception>
+
+	<exception class="org.jboss.seam.security.AuthorizationException">
+		<redirect view-id="/error.xhtml">
+			<message severity="INFO">You don't have permission to do this
+			</message>
+		</redirect>
+	</exception>
+
+	<exception class="org.jboss.seam.security.NotLoggedInException">
+		<redirect view-id="/updateLogin.xhtml">
+			<message>Please login first</message>
+		</redirect>
+	</exception>
+
+	<exception class="javax.faces.application.ViewExpiredException">
+		<redirect view-id="/error.xhtml">
+			<message severity="INFO">Your session has timed out, please try
+				again</message>
+		</redirect>
+	</exception>
+
+</pages>

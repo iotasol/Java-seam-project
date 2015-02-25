@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+<head>
+	<meta charset="ISO-8859-1" />
+	<title>CRUD operations</title>
+	
+	<!-- external stylesheets files starts from here -->
+	<link href="${request.contextPath}/css/bootstrap-3.3.1/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="${request.contextPath}/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	
+	<!-- custom stylesheets starts from here -->
+	<link href="${request.contextPath}/css/styleSheet.css" rel="stylesheet" type="text/css" />
+	<link href="${request.contextPath}/css/grayscale.css" rel="stylesheet" type="text/css" />
+	
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+	<a4j:form id="general">
+	
+		<ui:include src="../common/loading.xhtml" />
+		
+		<t:saveState value="#{userDTO}" />
+		
+		<!-- Hidden Fields div starts from here -->
+		<t:div id="refreshHiddenFields">
+			<h:inputHidden id="userId" value="#{userDTO.id}" />
+			<h:inputHidden id="error" value="#{userDTO.error}" />
+			<h:inputHidden id="errorMessage" value="#{userDTO.errorMessage}" />
+		</t:div>
+		<!-- Hidden Fields div ends here -->
+		
+		<a4j:commandLink id="saveUser" action="#{userAction.saveUser}" rendered="true" onclick="invokeWaitingGIfForSave('Loading..');" 
+			oncomplete="revokeWaitingGIfForSave();showErrorMessage();loadDeleteClick();" reRender="refreshHiddenFields,refreshUser,usersList" />
+		<a4j:commandLink id="deleteUser" action="#{userAction.deleteUser}" onclick="hideUser();" oncomplete="clearUserId();loadDeleteClick();" rendered="true"
+			reRender="refreshHiddenFields,refreshUser,usersList"/>
+		<a4j:commandLink id="fetchUser" action="#{userAction.loadUser}"
+			onclick="invokeWaitingGIfForSave('Loading..');" oncomplete="clearUserId();loadDeleteClick();" rendered="true" reRender="refreshUser,refreshHiddenFields"/>
+		<a4j:commandLink id="clearUser" action="#{userAction.clearUser}" rendered="true" onclick="invokeWaitingGIfForSave('Loading..');" 
+			oncomplete="revokeWaitingGIfForSave();loadDeleteClick();" reRender="refreshHiddenFields,refreshUser" />
+		
+		<!-- Confirmation Model starts from here -->
+		<div class="modal fade" id="confirmDelete">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #d9534f;">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" style="text-transform: capitalize;">Delete User</h4>
+					</div>
+					<div class="modal-body">
+						<p style="color: #000;">Are you Sure you want to delete this User?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-danger" id="delete" data-dismiss="modal">Delete</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		<!-- Confirmation Model ends here -->
+		
+	    <!-- Navigation starts from here -->
+	    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation" >
+	        <div class="container">
+	            <div class="navbar-header">
+	                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+	                    <i class="fa fa-bars"></i>
+	                </button>
+	                <a class="navbar-brand page-scroll" href="http://iotasol.com/">
+	                    IOTASOL
+	                </a>
+	            </div>
+	
+	            <!-- Collect the nav links, forms, and other content for toggling -->
+	            <div class="collapse navbar-collapse navbar-right navbar-main-collapse" >
+	                <ul class="nav navbar-nav">
+	                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+	                    <li class="hidden">
+	                        <a href="#page-top"></a>
+	                    </li>
+	                   	<li>
+	                        <a class="page-scroll" href="../pages/about">About</a>
+	                    </li>
+	                    <li style="background-color: rgba(255,255,255,.3);">
+	                        <a class="page-scroll" href="../pages/listing">Listing</a>
+	                    </li>
+	                    <li>
+	                    	<a4j:commandLink id="signoout" action="#{authenticator.signOut}">
+	                        	Logout
+	                        </a4j:commandLink>
+	                    </li>
+	                </ul>
+	            </div>
+	            <!-- /.navbar-collapse -->
+	            <div class="clearfix"></div>
+	        </div>
+	        <!-- /.container -->
+	        <div class="clearfix"></div>
+	    </nav>
+	    <!-- Navigation ends here -->
+	    <div class="clearfix"></div>
+	    
+	    <!-- ALERT DIV starts from here -->
+		<div id="ccAlertId" class="alertHolderDiv">
+			<div id="ccAlertColorId" class="" style="width: 90%; margin: 0 auto;">
+			    <button type="button" class="close" onclick="closeAlertErrorDiv('ccAlertId');">&#215;</button>
+			    <h4 id="alertHeadId"></h4>
+			    <span id="alertMsgId"></span>
+			</div>
+		</div>
+		<!-- ALERT DIV ends here -->
+	
+	    <!-- Section starts from here -->
+	    <section class="intro">
+	    
+	        <div class="intro-body">
+	        	
+	            <div class="container">
+	            
+	                <div class="row">
+	                
+	                	<!-- Creation of the div starts from here -->
+	                    <t:div styleClass="col-lg-6" id="refreshUser">
+	                    	<h1 class="page-header" style="font-size: 30px; text-align: left;">
+	                            Create
+	                        </h1>
+	                        <div class="form-group">
+								<label>
+									Username
+								</label>
+								<h:inputText id="username" styleClass="form-control" placeholder="Enter Username" value="#{userDTO.userBean.username}"/>
+							</div>
+							<div class="form-group">
+								<label>
+									Password
+								</label>
+								<h:inputSecret id="password" redisplay="true" styleClass="form-control" placeholder="Enter Last Name" value="#{userDTO.userBean.password}"/>
+							</div>
+							<div class="form-group">
+								<label>
+									First Name
+								</label>
+								<h:inputText id="firstName" styleClass="form-control" placeholder="Enter First Name" value="#{userDTO.userBean.firstName}"/>
+							</div>
+							<div class="form-group">
+								<label>
+									Last Name
+								</label>
+								<h:inputText id="lastName" styleClass="form-control" placeholder="Enter Last Name" value="#{userDTO.userBean.lastName}"/>
+							</div>
+							<div class="form-group">
+								<label>
+									Email
+								</label>
+								<h:inputText id="email" styleClass="form-control" placeholder="Enter Email" value="#{userDTO.userBean.email}"/>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-primary pull-left" type="button" onclick="saveUser();">Save</button>
+								<button class="btn btn-danger pull-right" type="button" onclick="submitRequest('general:clearUser');">Clear</button>
+								<div class="clearfix"></div>
+							</div>
+							<div class="clearfix"></div>
+						</t:div>
+						<!-- Creation of the div ends here -->
+						
+						<!-- Listing div starts from here -->
+						<div class="col-lg-6">
+							<div class="page-header" style="width: 100%; display: inline-block;">
+		                        <h1 class="pull-left" style="margin-top: 0; margin-bottom: 0; font-size: 30px; text-align: left;">
+		                            Sub Users
+		                        </h1>
+		                        <div class="clearfix"></div>
+		                    </div>
+	                        <t:div styleClass="table-responsive" id="usersList">
+	                            <table class="table table-bordered table-hover table-striped">
+	                                <thead>
+	                                    <tr>
+	                                       	<th>#</th>
+	                                       	<th>Username</th>
+											<th>Name</th>
+											<th>Email</th>
+											<th>Edit</th>
+											<th>Delete</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                	<!-- if the user list is not empty -->
+	                                	<s:fragment rendered="#{not empty userDTO.userListBean}">
+											<a4j:repeat rowKeyVar="ctr" var="userBean" value="#{userDTO.userListBean}">
+			                                	<tr style="background-color: #fff;" id="user_li_#{userBean.id}">
+													<th>#{ctr+1}</th>
+													<td>
+														#{userBean.username}
+													</td>
+													<td>
+														#{userBean.firstName}  #{userBean.lastName}
+													</td>
+													<td>
+														#{userBean.email}
+													</td>
+													<td style="text-align: center;">
+														<span style="cursor: pointer;" class="glyphicon glyphicon-edit" onclick="fetchUser(#{userBean.id});"></span>
+													</td>
+													<td style="text-align: center;">
+														<span style="cursor: pointer; color: #c9302c" class="glyphicon glyphicon-remove-circle" onclick="removeFromList(#{userBean.id})"></span>
+													</td>
+												</tr>
+											</a4j:repeat>
+										</s:fragment>
+										
+	                                </tbody>
+	                            </table>
+	                        </t:div>
+	                    </div>
+	                    <!-- Listing div ends here -->
+	                    
+	                </div>
+	            </div>
+	            
+	        </div>
+	        
+	    </section>
+	    <!-- Section starts from here -->
+	    
+	</a4j:form>
+	
+	<!-- external script files starts from here -->
+	<script type="text/javascript" src="${request.contextPath}/js/jQuery.js"></script>
+	<script type="text/javascript" src="${request.contextPath}/js/bootstrap-3.3.1/bootstrap.min.js"></script>
+	<script>
+     jQuery.noConflict();
+   	</script>
+   	<!-- custom scripts starts from here -->
+   	<script type="text/javascript" src="${request.contextPath}/js/General.js"></script>
+   	<script type="text/javascript" src="${request.contextPath}/js/common.js"></script>
+	<script type="text/javascript">
+		
+		/* confirmation popup */
+		function loadDeleteClick(){
+			jQuery('.glyphicon-remove-circle').on('click', function(e){
+			    e.preventDefault();
+			    jQuery('#confirmDelete').modal({ backdrop: 'static', keyboard: false })
+			        .one('click', '#delete', function() {
+			            submitRequest('general:deleteUser');
+			        });
+			        // (one. is not a typo of on.)
+			});
+		}
+		
+		loadDeleteClick();
+		
+		function removeFromList(id){
+			document.getElementById('general:userId').value = id;
+		}
+		
+		
+		/* hiding the user from the list */
+		function hideUser(){
+			jQuery("#user_li_"+document.getElementById('general:userId').value).hide();
+			invokeWaitingGIfForSave('Loading..');
+		}
+		
+		/* revoking waiting sign and clear the user id */
+		function clearUserId(){
+			revokeWaitingGIfForSave();
+			document.getElementById('general:userId').value = 0; 
+		}
+		
+		/* fetching user based on user id */
+		function fetchUser(id){
+			document.getElementById('general:userId').value = id;
+			submitRequest('general:fetchUser');
+		}
+		
+		/* Saving User */
+		function saveUser(){
+			if(document.getElementById('general:username').value == ''){
+				showAlertErrorMsg('Error !', 'Please enter username', 'alert-danger');
+				return;
+			}
+			if(document.getElementById('general:password').value == ''){
+				showAlertErrorMsg('Error !', 'Please enter password', 'alert-danger');
+				return;
+			}
+			if(document.getElementById('general:firstName').value == ''){
+				showAlertErrorMsg('Error !', 'Please enter first name', 'alert-danger');
+				return;
+			}
+			if(document.getElementById('general:lastName').value == ''){
+				showAlertErrorMsg('Error !', 'Please enter last name', 'alert-danger');
+				return;
+			}
+			if(document.getElementById('general:email').value == ''){
+				showAlertErrorMsg('Error !', 'Please enter email', 'alert-danger');
+				return;
+			}
+			if(!validEmailAddress('general:email', "email address"))
+				return;
+			submitRequest('general:saveUser');
+		}
+		
+		/* showing error message return from server side */
+		function showErrorMessage(){
+			if(document.getElementById('general:error').value == 'true'){
+				showAlertErrorMsg("Error !", document.getElementById('general:errorMessage').value, 'alert-danger');
+				return;
+			}
+		}
+		
+		/*Email validation*/
+		function validEmailAddress(id, error){
+			var email = document.getElementById(id);
+			var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if (!filter.test(email.value))
+			{
+				showAlertErrorMsg('Error !', 'Please provide a valid ' + error + '.', 'alert-danger');
+				return false;
+			}
+			return true;
+		}
+		
+		/* methods for the alert popup starts from here */
+		var AlertErrorMsgTimeOut;
+		function showAlertErrorMsg(heading, message, styleClass) {
+			jQuery('#ccAlertId').hide();
+			jQuery('#ccAlertColorId').removeClass();
+			if(message==undefined || message == '') 
+				message = 'Some error has occured. Please retry.';
+			document.getElementById('alertHeadId').innerHTML=heading;
+			document.getElementById('alertMsgId').innerHTML=message;
+			jQuery('#ccAlertColorId').addClass('alert '+styleClass);
+			jQuery('#ccAlertId').fadeIn();
+			AlertErrorMsgTimeOut = window.setTimeout(function() {
+				jQuery('#ccAlertId').fadeOut();
+				jQuery('#ccAlertColorId').removeClass();
+				jQuery('#ccAlertId').find('#errorMsgHolder').html("");
+		    }, 10000);
+		}
+
+		function closeAlertErrorDiv(id) {
+			clearTimeout(AlertErrorMsgTimeOut);
+			jQuery('#'+id).fadeOut();
+			jQuery('#'+id).find('#errorMsgHolder').html("");
+		}
+		/* methods for the alert popup ends here */
+		
+	</script>
+</body>
+
+</html>

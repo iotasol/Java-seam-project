@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<!-- This is a spring configuration Datasource file   -->
+	<!-- All the application files are imported      -->
+	<!-- No specific spring beans defined here bean  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx.xsd"
+	default-autowire="byName">
+
+	<!--
+		Datasource definition for MyFaces, Hibernate and Spring Integration
+		application.
+	-->
+
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		lazy-init="false">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/seam-demo-project" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+
+	</bean>
+
+</beans>

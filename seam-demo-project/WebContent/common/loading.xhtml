@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+	<style type="text/css">
+		.saveloadingPanel {
+			width: 200px;
+			height: 75px;
+			background-color: rgba(0, 0, 0, 0.8);
+			background-repeat: repeat-x;
+			border-radius: 5px;
+			text-align: center;
+			display: block;
+			z-index: 200000 !important;
+			top: -10000px;
+			position: absolute;
+		}
+		.saveloadingPanel img {
+			height: 41px;
+			width: 41px;
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: 15px;
+		}
+		.saveLodingForSpan {
+			font-family: Helvetica, Arial, Neue, Helvetica, sans-serif;
+			font-size: 13px;
+			color: #fff;
+			display: block;
+			margin-top: 5px;
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: 20px;
+			margin-right: 23px;
+		}
+	</style>
+	<script type="text/javascript">
+	//<![CDATA[
+		function invokeWaitingGIfForSave(val) {
+			if(val==undefined)
+				val="";
+			jQuery(".saveLodingForSpan").html(val+"...");
+			document.body.style.cursor = 'wait';
+			showModelPopup('saveloadingPanel',"",false);
+			/* showModelPopup('saveloadingPanel', 0, true, 1000); */
+		}
+		// This method is used to revoke waiting gif
+		function revokeWaitingGIfForSave() {
+			hideModel('saveloadingPanel');
+			document.body.style.cursor = 'default';
+		}
+	//]]>-->
+	</script>
+</head>
+<body>
+	<f:view>
+		<div id="saveloadingPanel" class="saveloadingPanel">
+			<span class="saveLodingForSpan"></span> 
+			<img src="${request.contextPath}/img/loading-1.gif" alt="" />
+		</div>
+	</f:view>
+</body>
+</ui:composition>
