@@ -2,7 +2,7 @@
 
 This project is created by <a href="http://iotasol.com/" target="_blank">Iotasol Technologies Pvt. Ltd.</a>
 
-Technologies Used
+Technologies Used<br/>
 <a href="http://seamframework.org/" target="_blank">Seam 2(JSF)</a><br/>
 <a href="http://jquery.com/" target="_blank">jQuery</a><br/>
 <a href="http://www.mysql.com/" target="_blank">MySql</a><br/>
