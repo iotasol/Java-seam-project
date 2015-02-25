@@ -4,8 +4,10 @@ This project is created by <a href="http://iotasol.com/" target="_blank">Iotasol
 
 Technologies Used<br/>
 <a href="http://seamframework.org/" target="_blank">Seam 2(JSF)</a><br/>
-<a href="http://jquery.com/" target="_blank">jQuery</a><br/>
 <a href="http://www.mysql.com/" target="_blank">MySql</a><br/>
+<a href="http://xhtml.com/en/xhtml/reference/" target="_blank">XHTML</a><br/>
+<a href="http://hibernate.org/" target="_blank">Hibernate</a><br/>
+<a href="http://jquery.com/" target="_blank">jQuery</a><br/>
 <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a><br/>
 <a>Javascript</a><br/>
 
